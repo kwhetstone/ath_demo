@@ -31,7 +31,10 @@ node('bagel') {
     echo "Only the most recent build  will be deployed"
     stage('deploy') {
         echo 'This will be the external deploy'
-        
+        //push to dockerhub
+        docker.withRegistry('https://hub.docker.com/, 'kwhetstone_dockerhub']) { //defined in credentials
+             ato_app.push('latest')
+        }
     }
 
     stage('cleanup') {
@@ -40,5 +43,3 @@ node('bagel') {
         }
     }
 }
-
-//things to do in external library: run in folders, details of launching container?, switch windows/linux commands?
