@@ -12,7 +12,7 @@ node('bagel') {
             //bat 'npm install'
             sh 'npm install'
         }
-        ato_app = docker.build("kwhetstone/ato_app:${env.BUILD_TAG}", 'nodeLoc')
+        ato_app = docker.build("kwhetstone/ato_demo:${env.BUILD_TAG}", 'nodeLoc')
     }
 
     
