@@ -31,8 +31,8 @@ node('bagel') {
     echo "Only the most recent build  will be deployed"
     stage('deploy') {
         echo 'This will be the external deploy'
-        //push to dockerhub
-        docker.withRegistry('https://hub.docker.com/, 'kwhetstone_dockerhub']) { //defined in credentials
+        //push to dockerhub; credentials definied in Jenkins
+        docker.withRegistry('https://hub.docker.com/', 'kwhetstone_dockerhub']) { 
              ato_app.push('latest')
         }
     }
