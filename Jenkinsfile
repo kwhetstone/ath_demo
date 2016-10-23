@@ -32,9 +32,11 @@ node('bagel') {
     stage('deploy') {
         echo 'This will be the external deploy'
         //push to dockerhub; credentials definied in Jenkins
-        docker.withRegistry("https://registry.hub.docker.com", 'kwhetstone_dockerhub') { 
+        /*docker.withRegistry("https://registry.hub.docker.com", 'kwhetstone_dockerhub') { 
              ato_app.push('latest')
-        }
+        }*/
+        sh 'docker tag --force=true kwhetstone/ato_demo:jenkins-MultibranchDemo-master-10 registry.hub.docker.com/kwhetstone/ato_demo:latest'
+        sh 'docker push kwhetstone/ato_demo:latest'
     }
 
     stage('cleanup') {
