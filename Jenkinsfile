@@ -25,7 +25,7 @@ node('bagel') {
     
     echo "Only the most recent build  will be deployed"
     stage('feature check') {
-        echo 'Let's not actually deploy on my feature branch...'
+        echo 'Let us not actually deploy on my feature branch...'
         
     }
 
