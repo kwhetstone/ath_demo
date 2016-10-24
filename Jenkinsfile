@@ -14,7 +14,7 @@ node('bagel') {
     
     stage('test') {
         dir('nodeLoc') {
-            def helper = load 'nodeLoc/helper.groovy'
+            def helper = load 'helper.groovy'
             echo 'Launch the docker container for testing'
 
             helper.test(ato_app);
