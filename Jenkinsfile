@@ -13,10 +13,12 @@ node('bagel') {
 
     
     stage('test') {
-        def helper = load 'helper.groovy'
-        echo 'Launch the docker container for testing'
+        dir('nodeLoc') {
+            def helper = load 'nodeLoc/helper.groovy'
+            echo 'Launch the docker container for testing'
 
-        helper.test(ato_app);
+            helper.test(ato_app);
+        }
     }
     
     echo "Only the most recent build  will be deployed"
