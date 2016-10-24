@@ -13,19 +13,15 @@ node('bagel') {
 
     
     stage('test') {
+        def helper = load 'helper.groovy'
         echo 'Launch the docker container for testing'
-        def toTest = ato_app.run()
-        
-        dir('nodeLoc') {
-            sh 'npm test'
-            junit '*.xml'
-        }
-        toTest.stop()
+
+        helper.test(ato_app);
     }
     
     echo "Only the most recent build  will be deployed"
     stage('feature check') {
-        echo 'Let us not actually deploy on my feature branch...'
+        echo 'Do not actually deploy on my feature branch...'
         
     }
 
