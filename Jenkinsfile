@@ -1,15 +1,16 @@
 node('bagel') {
-    dir('nodeLoc') {
-    // some block
+    echo "let's get it started"
+    stage('code') {
+        dir('nodeLoc') {
+            //credentials are configured in Jenkins
+            //git credentialsId: 'kwhetstone_github', url: 'http://github.com/kwhetstone/ath_demo/'
+            scm checkout
+        }
     }
  
     def ato_app
     stage('build') {
-        dir('nodeLoc') {
-            checkout scm
-            //git credentialsId: 'a62b642d-fdda-44b9-88bc-1318a2d9e332', url: 'http://github.com/kwhetstone/ath_demo/'
-            
-            //bat 'npm install'
+        dir('nodeLoc') {            
             sh 'npm install'
         }
         ato_app = docker.build("kwhetstone/ato_demo:${env.BUILD_TAG}", 'nodeLoc')
@@ -33,9 +34,7 @@ node('bagel') {
         echo 'This will be the external deploy'
         //push to dockerhub; credentials definied in Jenkins
         docker.withRegistry("https://registry.hub.docker.com", 'kwhetstone_dockerhub') { 
-             ato_app.push('latest')
-             //sh 'docker tag --force=true kwhetstone/ato_demo:jenkins-MultibranchDemo-master-10 kwhetstone/ato_demo:latest'
-             //sh 'docker push kwhetstone/ato_demo:latest'
+             ato_app.push 'latest'
         }
     }
 
